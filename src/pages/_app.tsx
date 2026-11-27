@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Layout>
       <Script
         strategy="beforeInteractive"
-        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.CLIENT_ID}&submodules=geocoder&callback=initMap`}
+        src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.CLIENT_ID}`}
       ></Script>
     </>
   );
