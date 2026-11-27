@@ -33,23 +33,29 @@ export default SwiperPhoto;
 
 const StyledWrapper = styled(Swiper)`
   width: 100%;
-  flex: 1;
-  aspect-ratio: 3 / 4 !important;
-  height: 100%;
+  aspect-ratio: 3 / 4;
+  background: var(--color-stone);
 
   .swiper-pagination-bullet {
-    width: 16px;
-    border-radius: 4px;
-    background: gray;
-    opacity: 0.5;
-  }
-  .swiper-pagination-bullet-active {
-    opacity: 0.5;
-    background: black;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #fff;
+    opacity: 0.6;
+    transition: width 250ms ease, opacity 250ms ease;
   }
 
-  @media (max-width: 1024px) {
-    width: 100vw !important;
-    height: calc(100vw * 4 / 3) !important;
+  .swiper-pagination-bullet-active {
+    width: 20px;
+    opacity: 1;
+    background: #fff;
+  }
+
+  /* 데스크톱에서는 한 화면 높이에 맞춤 */
+  @media (min-width: 1025px) {
+    aspect-ratio: auto;
+    height: calc(100vh - var(--header-height));
+    min-height: 560px;
+    max-height: 960px;
   }
 `;

@@ -3,6 +3,7 @@ import Script from 'next/script';
 import styled from 'styled-components';
 import { CopyOutlined } from '@ant-design/icons';
 import { message } from 'antd';
+import Section from 'app.components/Section/Section';
 
 declare let naver: any;
 
@@ -42,18 +43,20 @@ const AboutMap = () => {
   };
 
   return (
-    <StyledWrapper>
-      <Script
-        src={NAVER_MAP_SRC}
-        strategy="afterInteractive"
-        onReady={initMap}
-      />
-      <div id="map"></div>
-      <div className="address">
-        <div>제주특별자치도 제주시 조천읍 신북로497, 소곤닥하우스</div>
-        <CopyOutlined onClick={handleCopyAddress} className="copy-button" />
-      </div>
-    </StyledWrapper>
+    <Section eyebrow="Location" title="오시는 길">
+      <StyledWrapper>
+        <Script
+          src={NAVER_MAP_SRC}
+          strategy="afterInteractive"
+          onReady={initMap}
+        />
+        <div id="map"></div>
+        <button type="button" className="address" onClick={handleCopyAddress}>
+          <span>제주특별자치도 제주시 조천읍 신북로497, 소곤닥하우스</span>
+          <CopyOutlined className="copy-button" />
+        </button>
+      </StyledWrapper>
+    </Section>
   );
 };
 
@@ -62,34 +65,33 @@ export default AboutMap;
 const StyledWrapper = styled.div`
   width: 100%;
 
-  img {
-    width: 100%;
-    height: auto;
-  }
-
-  .about-content {
-    padding: 80px;
-  }
-
   #map {
     width: 100%;
-    height: 400px;
-    margin-bottom: 8px;
+    height: 360px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--color-stone);
+    margin-bottom: 12px;
   }
 
   .address {
-    font-family: 'Noto Sans KR';
-    color: var(--color-main);
-    font-size: 13px;
-    text-align: center;
-    font-weight: 600;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 4px;
+    gap: 8px;
+    padding: 0;
+    background: none;
+    font-size: 14px;
+    color: var(--color-ink);
+    text-align: left;
+    cursor: pointer;
+    transition: color 200ms;
 
     .copy-button {
-      cursor: pointer;
+      color: var(--color-main);
+    }
+
+    &:hover {
+      color: var(--color-main);
     }
   }
 `;

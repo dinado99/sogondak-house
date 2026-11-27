@@ -1,31 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Collapse } from 'antd';
 import Image from 'next/image';
 import costLow from '../../../public/images/reservation/비수기.jpeg';
 import costMid from '../../../public/images/reservation/준성수기.jpeg';
 import costHigh from '../../../public/images/reservation/성수기.jpeg';
 
-const { Panel } = Collapse;
+const SEASONS = [
+  { name: '비수기', image: costLow },
+  { name: '준성수기', image: costMid },
+  { name: '성수기', image: costHigh },
+];
 
-type TProps = {
-  isMobile: boolean;
-};
+const ReservationPanelCost = () => {
+  const [selected, setSelected] = useState(0);
+  const season = SEASONS[selected];
 
-const ReservationPanelCost: React.FC<TProps> = ({ isMobile }) => {
   return (
     <StyledWrapper>
-      <Collapse ghost accordion={isMobile}>
-        <Panel key="1" header="비수기">
-          <Image src={costLow} alt="비수기 객실 요금" sizes="(max-width: 800px) 100vw, 800px" />
-        </Panel>
-        <Panel key="2" header="준성수기">
-          <Image src={costMid} alt="준성수기 객실 요금" sizes="(max-width: 800px) 100vw, 800px" />
-        </Panel>
-        <Panel key="3" header="성수기">
-          <Image src={costHigh} alt="성수기 객실 요금" sizes="(max-width: 800px) 100vw, 800px" />
-        </Panel>
-      </Collapse>
+      <div className="season-tabs" role="tablist">
+        {SEASONS.map((item, idx) => (
+          <button
+            key={item.name}
+            type="button"
+            role="tab"
+            aria-selected={selected === idx}
+            className={`season-tab ${selected === idx ? 'active' : ''}`}
+            onClick={() => setSelected(idx)}
+          >
+            {item.name}
+          </button>
+        ))}
+      </div>
+      <div className="season-image">
+        <Image
+          key={season.name}
+          src={season.image}
+          alt={`${season.name} 객실 요금`}
+          sizes="(max-width: 880px) 100vw, 832px"
+        />
+      </div>
     </StyledWrapper>
   );
 };
@@ -35,17 +48,38 @@ export default ReservationPanelCost;
 const StyledWrapper = styled.div`
   width: 100%;
 
-  .ant-collapse-header[aria-expanded='true'] {
-    color: var(--color-main);
+  .season-tabs {
+    display: inline-flex;
+    padding: 4px;
+    margin-bottom: 20px;
+    background: var(--color-stone);
+    border-radius: 999px;
   }
 
-  .ant-collapse-header-text {
-    font-weight: 400 !important;
+  .season-tab {
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: transparent;
+    font-size: 13px;
+    color: var(--color-text);
+    transition: background 200ms, color 200ms;
+
+    &.active {
+      background: #fff;
+      color: var(--color-main);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
   }
 
-  img {
-    max-width: 800px;
-    width: 100%;
-    height: auto;
+  .season-image {
+    border: 1px solid var(--color-line);
+    border-radius: 12px;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
   }
 `;

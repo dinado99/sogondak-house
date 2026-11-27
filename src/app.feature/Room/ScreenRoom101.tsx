@@ -1,11 +1,6 @@
 import React from 'react';
-import RoomInfoBox from './RoomInfoBox';
-import { ObjectRoom } from './ObjectRoom';
+import RoomInfoBox, { roomProps } from './RoomInfoBox';
 
-const ScreenRoom101 = () => {
-  const roomInfo101 = ObjectRoom['101'];
-
-  return <RoomInfoBox {...roomInfo101} />;
-};
+const ScreenRoom101 = () => <RoomInfoBox {...roomProps(101)} />;
 
 export default ScreenRoom101;

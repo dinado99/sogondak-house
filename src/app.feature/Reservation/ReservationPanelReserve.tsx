@@ -25,7 +25,7 @@ const ReservationPanelReserve = () => {
           <div className="title">비수기</div>
           <div className="refund-rule-box">
             <div className="content">이용 9일 전 - </div>
-            <div className="content"> 총 결제금액의 10% 차감</div>
+            <div className="content">총 결제금액의 10% 차감</div>
 
             <div className="content">이용 8일 전 - </div>
             <div className="content">총 결제금액의 20% 차감</div>
@@ -60,7 +60,7 @@ const ReservationPanelReserve = () => {
           <div className="title">준성수기 / 성수기</div>
           <div className="refund-rule-box">
             <div className="content">이용 9일 전 - </div>
-            <div className="content"> 총 결제금액의 10% 차감</div>
+            <div className="content">총 결제금액의 10% 차감</div>
 
             <div className="content">이용 8일 전 - </div>
             <div className="content">총 결제금액의 20% 차감</div>
@@ -86,32 +86,37 @@ const ReservationPanelReserve = () => {
 export default ReservationPanelReserve;
 
 const StyledWrapper = styled.div`
-  padding-left: 16px;
-  line-height: 2;
+  line-height: 1.9;
 
   .reserve-info {
-    margin-bottom: 40px;
+    margin-bottom: 32px;
   }
 
   .refund-info-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
 
-    @media (max-width: 768px) {
-      gap: 40px;
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
     }
 
     .refund-info {
+      padding: 20px 24px;
+      background: var(--color-stone);
+      border-radius: 12px;
+
       .title {
-        margin-bottom: 8px;
-        font-weight: 500;
+        margin-bottom: 12px;
+        font-weight: 600;
+        color: var(--color-ink);
       }
 
       .refund-rule-box {
         display: grid;
         grid-template-columns: max-content auto;
         column-gap: 12px;
+        font-size: 13px;
       }
     }
   }
