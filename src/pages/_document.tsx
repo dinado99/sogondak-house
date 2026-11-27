@@ -56,16 +56,6 @@ class MyDocument extends Document {
           <meta property="og:url" content="https://sogondakhouse.com" />
           <meta name="format-detection" content="no" />
           <meta charSet="utf-8" />
-          <meta
-            http-equiv="Cache-Control"
-            content="no-cache, no-store, must-revalidate"
-          />
-          <meta http-equiv="Pragma" content="no-cache" />
-          <meta http-equiv="Expires" content="0" />
-          <link
-            href="https://fonts.cdnfonts.com/css/itc-avant-garde-gothic-std-book"
-            rel="stylesheet"
-          />
         </Head>
         <body>
           <Main />

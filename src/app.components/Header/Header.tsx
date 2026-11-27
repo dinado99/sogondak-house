@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { Dropdown } from 'antd';
 import { useRouter } from 'next/router';
 import HeaderRoomModal from './HeaderRoomModal';
 import Image from 'next/image';
 
 const Header = () => {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
+  const roomMenuRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
 
-  const handleOpenChange = (flag: boolean) => {
-    setIsOpenDropdown(flag);
+  // 드롭다운 바깥을 누르면 닫기 (모바일)
+  useEffect(() => {
+    if (!isOpenDropdown) return;
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!roomMenuRef.current?.contains(event.target as Node)) {
+        setIsOpenDropdown(false);
+      }
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [isOpenDropdown]);
+
+  // 마우스는 hover 로 열고 닫음, 터치는 탭으로 토글
+  const handlePointerEnter = (event: React.PointerEvent) => {
+    if (event.pointerType === 'mouse') setIsOpenDropdown(true);
+  };
+  const handlePointerLeave = (event: React.PointerEvent) => {
+    if (event.pointerType === 'mouse') setIsOpenDropdown(false);
   };
 
   return (
@@ -23,6 +39,7 @@ const Header = () => {
             width={99.17}
             height={72}
             alt="소곤닥하우스"
+            priority
             src="/images/common/logo-big.png"
           />
         </Link>
@@ -31,6 +48,7 @@ const Header = () => {
             width={101.81}
             height={52}
             alt="소곤닥하우스"
+            priority
             src="/images/common/logo-letter-black.png"
           />
         </div>
@@ -49,15 +67,24 @@ const Header = () => {
         >
           ABOUT
         </div>
-        <Dropdown
-          overlay={<HeaderRoomModal handleOpenChange={setIsOpenDropdown} />}
-          open={isOpenDropdown}
-          onOpenChange={handleOpenChange}
+        <div
+          ref={roomMenuRef}
+          className="room-menu"
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
         >
-          <div className={`menu-item ${router.pathname.includes('room')}`}>
+          <div
+            className={`menu-item ${router.pathname.includes('room')}`}
+            onClick={() => setIsOpenDropdown((prev) => !prev)}
+          >
             ROOM
           </div>
-        </Dropdown>
+          {isOpenDropdown && (
+            <div className="room-dropdown">
+              <HeaderRoomModal handleOpenChange={setIsOpenDropdown} />
+            </div>
+          )}
+        </div>
         <Link
           href="/reservation"
           className={`menu-item ${router.pathname === '/reservation'}`}
@@ -77,9 +104,17 @@ const StyledWrapper = styled.div`
   left: 0;
   z-index: 1000;
 
-  .ant-menu-horizontal {
-    height: 40px;
-    border-bottom: none !important;
+  .room-menu {
+    position: relative;
+
+    .room-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      padding-top: 4px;
+      z-index: 1050;
+    }
   }
 
   .header-bottom {

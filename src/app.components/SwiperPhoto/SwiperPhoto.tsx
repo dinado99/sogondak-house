@@ -37,12 +37,6 @@ const StyledWrapper = styled(Swiper)`
   aspect-ratio: 3 / 4 !important;
   height: 100%;
 
-  img {
-    height: 100%;
-    aspect-ratio: 3 / 4 !important;
-    object-fit: cover;
-  }
-
   .swiper-pagination-bullet {
     width: 16px;
     border-radius: 4px;

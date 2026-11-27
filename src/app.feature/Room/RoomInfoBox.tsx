@@ -13,7 +13,11 @@ const RoomInfoBox: React.FC<typeRoomInfo> = (props) => {
       <SwiperPhoto>
         {photo.map((item, idx) => (
           <SwiperSlide key={`room-${number}-image-${idx}`}>
-            <ImageSwiper src={item} alt={`room-${number}-image-${idx}`} />
+            <ImageSwiper
+              src={item}
+              alt={`room-${number}-image-${idx}`}
+              priority={idx === 0}
+            />
           </SwiperSlide>
         ))}
       </SwiperPhoto>

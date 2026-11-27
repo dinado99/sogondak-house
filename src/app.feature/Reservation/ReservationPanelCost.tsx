@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Collapse } from 'antd';
+import Image from 'next/image';
+import costLow from '../../../public/images/reservation/비수기.jpeg';
+import costMid from '../../../public/images/reservation/준성수기.jpeg';
+import costHigh from '../../../public/images/reservation/성수기.jpeg';
 
 const { Panel } = Collapse;
 
@@ -13,13 +17,13 @@ const ReservationPanelCost: React.FC<TProps> = ({ isMobile }) => {
     <StyledWrapper>
       <Collapse ghost accordion={isMobile}>
         <Panel key="1" header="비수기">
-          <img src="/images/reservation/비수기.jpeg" />
+          <Image src={costLow} alt="비수기 객실 요금" sizes="(max-width: 800px) 100vw, 800px" />
         </Panel>
         <Panel key="2" header="준성수기">
-          <img src="/images/reservation/준성수기.jpeg" />
+          <Image src={costMid} alt="준성수기 객실 요금" sizes="(max-width: 800px) 100vw, 800px" />
         </Panel>
         <Panel key="3" header="성수기">
-          <img src="/images/reservation/성수기.jpeg" />
+          <Image src={costHigh} alt="성수기 객실 요금" sizes="(max-width: 800px) 100vw, 800px" />
         </Panel>
       </Collapse>
     </StyledWrapper>
@@ -41,5 +45,7 @@ const StyledWrapper = styled.div`
 
   img {
     max-width: 800px;
+    width: 100%;
+    height: auto;
   }
 `;

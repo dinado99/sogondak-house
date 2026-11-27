@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Image from 'next/image';
+import aboutMain from '../../../public/images/about/main.jpeg';
 import AboutCafe from './AboutCafe';
 import AboutMap from './AboutMap';
 import AboutParking from './AboutParking';
@@ -9,7 +11,13 @@ import AboutTransportation from './AboutTransportation';
 const ScreenAbout = () => {
   return (
     <StyledWrapper>
-      <img src="/images/about/main.jpeg" />
+      <Image
+        src={aboutMain}
+        alt="소곤닥하우스 전경"
+        sizes="100vw"
+        placeholder="blur"
+        priority
+      />
       <div className="about-content">
         <AboutTime />
         <AboutMap />

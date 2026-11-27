@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { SwiperSlide } from 'swiper/react';
 import SwiperPhoto from 'app.components/SwiperPhoto/SwiperPhoto';
@@ -13,23 +13,17 @@ const ArrImage = [
   'https://velog.velcdn.com/images/wlsdk0313/post/ecc371f6-9f7f-48c6-948d-f209ab29d292/image.JPG',
 ];
 
-const ScreenHome = (props) => {
-  console.log(props);
-
-  useEffect(() => {
-    async () => {
-      const res = await fetch('/api/room');
-      const roomImages = await res.json();
-      console.log(roomImages);
-    };
-  }, []);
-
+const ScreenHome = () => {
   return (
     <StyledWrapper>
       <SwiperPhoto>
         {ArrImage.map((item, idx) => (
           <SwiperSlide key={`main-image-${idx}`}>
-            <ImageSwiper src={item} alt={`main-image-${idx}`} />
+            <ImageSwiper
+              src={item}
+              alt={`main-image-${idx}`}
+              priority={idx === 0}
+            />
           </SwiperSlide>
         ))}
       </SwiperPhoto>
@@ -70,11 +64,6 @@ const StyledWrapper = styled.div`
     width: 100%;
     flex: 1;
     aspect-ratio: 3 / 4 !important;
-  }
-
-  img {
-    height: 100%;
-    object-fit: cover;
   }
 
   @media (max-width: 1024px) {
@@ -124,9 +113,3 @@ const StyledWrapper = styled.div`
 
 export default ScreenHome;
 
-export async function getStaticProps() {
-  const res = await fetch('/api/room');
-  const roomImages = await res.json();
-
-  return { props: { roomImages } };
-}

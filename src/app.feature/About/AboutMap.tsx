@@ -1,9 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
+import Script from 'next/script';
 import styled from 'styled-components';
 import { CopyOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 
 declare let naver: any;
+
+const NAVER_MAP_SRC = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.CLIENT_ID}`;
 
 const AboutMap = () => {
   const mapRef = useRef<HTMLElement | null | any>(null);
@@ -15,28 +18,36 @@ const AboutMap = () => {
     );
   };
 
-  useEffect(() => {
+  // 스크립트가 로드된 뒤(그리고 이미 로드된 상태로 페이지에 다시 들어올 때마다) 실행
+  const initMap = () => {
+    if (typeof naver === 'undefined' || !naver.maps) return;
+
     const latLng = new naver.maps.LatLng(33.542845, 126.6633064);
 
     mapRef.current = new naver.maps.Map('map', {
       center: latLng,
       zoom: 15, //지도의 초기 줌 레벨
-      // draggable: false,
     });
 
-    let marker = new naver.maps.Marker({
+    const marker = new naver.maps.Marker({
       position: latLng,
       map: mapRef.current,
     });
 
     naver.maps.Event.addListener(marker, 'click', () => {
-      let url = 'https://map.naver.com/v5/entry/place/1659523223?c=20,0,0,0,dh';
+      const url =
+        'https://map.naver.com/v5/entry/place/1659523223?c=20,0,0,0,dh';
       window.open(url);
     });
-  }, []);
+  };
 
   return (
     <StyledWrapper>
+      <Script
+        src={NAVER_MAP_SRC}
+        strategy="afterInteractive"
+        onReady={initMap}
+      />
       <div id="map"></div>
       <div className="address">
         <div>제주특별자치도 제주시 조천읍 신북로497, 소곤닥하우스</div>

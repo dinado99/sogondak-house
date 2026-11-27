@@ -19,7 +19,11 @@ const ScreenRoomCommon = () => {
       <SwiperPhoto>
         {ArrImage.map((item, idx) => (
           <SwiperSlide key={`main-image-${idx}`}>
-            <ImageSwiper src={item} alt={`main-image-${idx}`} />
+            <ImageSwiper
+              src={item}
+              alt={`main-image-${idx}`}
+              priority={idx === 0}
+            />
           </SwiperSlide>
         ))}
       </SwiperPhoto>
