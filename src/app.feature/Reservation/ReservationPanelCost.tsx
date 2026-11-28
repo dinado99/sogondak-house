@@ -112,6 +112,10 @@ const ReservationPanelCost = () => {
           <b>1인 추가 시 1박 당 1만원</b>의 비용이 발생하며 침구류 세트, 수건
           등의 생활 비품이 추가로 제공됩니다.
         </p>
+        <p className="rate-direct">
+          해당 가격은 다이렉트 예약시 제공되는 가격입니다. 예약 플랫폼별 별도의
+          수수료가 발생하니 이점 확인 후 예약 진행 부탁드립니다.
+        </p>
       </div>
     </StyledWrapper>
   );
@@ -248,6 +252,14 @@ const StyledWrapper = styled.div`
     b {
       font-weight: 600;
       color: var(--color-text);
+    }
+
+    .rate-direct {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--color-main-soft);
+      color: var(--color-ink);
     }
   }
 `;
