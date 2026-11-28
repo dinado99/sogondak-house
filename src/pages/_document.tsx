@@ -8,6 +8,15 @@ import Document, {
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
+// 공유 미리보기(og)용 절대 주소.
+// Netlify 는 URL, Vercel 은 VERCEL_PROJECT_PRODUCTION_URL 을 빌드 시 제공한다.
+const SITE_URL = (
+  process.env.URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : 'https://sogondakhouse.com')
+).replace(/\/$/, '');
+
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
@@ -47,13 +56,20 @@ class MyDocument extends Document {
             name="description"
             content="함덕의 소담스러운 돌담집, 소곤닥하우스 | 함덕 해변 숙소"
           />
+          <meta property="og:site_name" content="소곤닥하우스" />
           <meta property="og:title" content="소곤닥하우스" />
           <meta
             property="og:description"
             content="함덕의 소담스러운 돌담집, 소곤닥하우스"
           />
           <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://sogondakhouse.com" />
+          <meta property="og:locale" content="ko_KR" />
+          <meta property="og:url" content={SITE_URL} />
+          <meta property="og:image" content={`${SITE_URL}/images/og.jpg`} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content="소곤닥하우스" />
+          <meta name="twitter:card" content="summary_large_image" />
           <meta name="format-detection" content="no" />
           <meta charSet="utf-8" />
           <meta
