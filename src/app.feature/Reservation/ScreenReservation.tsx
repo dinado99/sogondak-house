@@ -39,14 +39,15 @@ const ScreenReservation = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <Image
-                src={platform.icon}
-                alt=""
-                width={22}
-                height={22}
-                className="platform-icon"
-              />
-              {platform.name}
+              <span className="platform-icon">
+                <Image
+                  src={platform.icon}
+                  alt=""
+                  width={platform.iconWidth}
+                  height={platform.iconHeight}
+                />
+              </span>
+              <span className="platform-name">{platform.name}</span>
             </a>
           ))}
         </div>
@@ -78,16 +79,22 @@ const PLATFORMS = [
   {
     name: '네이버 예약',
     icon: '/images/reservation/naver.jpeg',
+    iconWidth: 768,
+    iconHeight: 785,
     href: 'https://map.naver.com/v5/entry/place/1659523223?lng=126.6633064&lat=33.542845&placePath=%2Froom&c=15,0,0,0,dh',
   },
   {
     name: '에어비앤비',
     icon: '/images/reservation/airbnb.jpeg',
+    iconWidth: 777,
+    iconHeight: 835,
     href: 'https://www.airbnb.co.kr/users/300970932/listings',
   },
   {
     name: '인스타그램',
     icon: '/images/reservation/instagram.jpeg',
+    iconWidth: 855,
+    iconHeight: 855,
     href: 'https://www.instagram.com/sogondak_house/',
   },
 ];
@@ -125,17 +132,20 @@ const StyledWrapper = styled.div`
   }
 
   .platform-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
+    max-width: 520px;
+    margin: 0 auto;
   }
 
   .platform {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 18px 10px 12px;
+    justify-content: center;
+    gap: 10px;
+    height: 48px;
+    padding: 0 16px;
     border: 1px solid var(--color-line);
     border-radius: 999px;
     font-size: 14px;
@@ -148,10 +158,32 @@ const StyledWrapper = styled.div`
       transform: translateY(-1px);
     }
 
+    /* 아이콘 원본 비율을 유지한 채 18px 높이 박스 안에 전부 보이도록 */
     .platform-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 18px;
+
+      img {
+        width: auto;
+        height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .platform-name {
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .platform-container {
+      grid-template-columns: 1fr;
+      max-width: 300px;
     }
   }
 
