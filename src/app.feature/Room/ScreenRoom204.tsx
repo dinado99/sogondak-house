@@ -1,18 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import RoomInfoBox from './RoomInfoBox';
-import { ObjectRoom } from './ObjectRoom';
+import RoomInfoBox, { roomProps } from './RoomInfoBox';
 
-const ScreenRoom204 = () => {
-  const roomInfo204 = ObjectRoom['204'];
-
-  return (
-    <StyledWrapper>
-      <RoomInfoBox {...roomInfo204} />
-    </StyledWrapper>
-  );
-};
-
-const StyledWrapper = styled.div``;
+const ScreenRoom204 = () => <RoomInfoBox {...roomProps(204)} />;
 
 export default ScreenRoom204;

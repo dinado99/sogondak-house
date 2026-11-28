@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app';
 import Layout from 'app.components/Layout/Layout';
 import 'app.styled/font.css';
-import Script from 'next/script';
 import Head from 'next/head';
 
 declare global {
@@ -23,10 +22,6 @@ export default function App({ Component, pageProps }: AppProps) {
       <Layout>
         <Component {...pageProps} />
       </Layout>
-      <Script
-        strategy="beforeInteractive"
-        src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.CLIENT_ID}`}
-      ></Script>
     </>
   );
 }
