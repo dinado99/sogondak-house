@@ -75,6 +75,9 @@ const ReservationPanelReserve = () => {
       <p className="refund-caption">
         * 환불 비율은 총 결제금액 기준입니다.
       </p>
+      <p className="refund-platform">
+        예약 플랫폼별 환불 규정은 상이합니다.
+      </p>
 
       <ul className="notice-list">
         {NOTICES.map((notice) => (
@@ -183,6 +186,16 @@ const StyledWrapper = styled.div`
     margin-top: 10px;
     font-size: 12px;
     color: var(--color-muted);
+  }
+
+  .refund-platform {
+    max-width: 560px;
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--color-main-soft);
+    font-size: 12px;
+    color: var(--color-ink);
   }
 
   .notice-list {
