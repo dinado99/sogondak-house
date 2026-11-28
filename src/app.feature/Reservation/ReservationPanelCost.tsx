@@ -134,10 +134,8 @@ const StyledWrapper = styled.div`
     }
   }
 
+  /* 요금표 이미지는 자체 테두리가 있어 잘리지 않도록 원본 그대로 표시 */
   .season-image {
-    border: 1px solid var(--color-line);
-    border-radius: 12px;
-    overflow: hidden;
 
     img {
       display: block;
